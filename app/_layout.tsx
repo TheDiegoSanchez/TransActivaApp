@@ -1,31 +1,28 @@
-// app/_layout.tsx
 import { Stack } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { useFonts, Nunito_400Regular, Nunito_700Bold } from '@expo-google-fonts/nunito';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
-    'Nunito-Regular': Nunito_400Regular,
-    'Nunito-Bold': Nunito_700Bold,
-  });
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+    const prepare = async () => {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      setIsReady(true);
+      await SplashScreen.hideAsync();
+    };
 
-  if (!fontsLoaded) return null;
+    prepare();
+  }, []);
+
+  if (!isReady) return null;
 
   return (
     <SafeAreaProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        {/* Esto permitirá que se rendericen correctamente tus rutas */}
-      </Stack>
+      <Stack screenOptions={{ headerShown: false }} />
     </SafeAreaProvider>
   );
 }

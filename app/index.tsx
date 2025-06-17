@@ -1,14 +1,14 @@
-// app/index.tsx
 import { useEffect } from 'react';
-import { useRouter } from 'expo-router';
+import { useRouter, useRootNavigationState } from 'expo-router';
 
 export default function Index() {
   const router = useRouter();
+  const navigationState = useRootNavigationState();
 
   useEffect(() => {
-    // Redirigir directamente al login al iniciar
-    router.replace('/(auth)/Login');
-  }, []);
+    if (!navigationState?.key) return;
+    router.replace('/(auth)/Onboarding');
+  }, [navigationState]);
 
-  return null; // no muestra nada, solo redirige
+  return null;
 }
