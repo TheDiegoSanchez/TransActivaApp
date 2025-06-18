@@ -1,4 +1,5 @@
 import { Stack } from 'expo-router';
+<<<<<<< HEAD
 import { useEffect, useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as SplashScreen from 'expo-splash-screen';
@@ -25,4 +26,9 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false }} />
     </SafeAreaProvider>
   );
+=======
+
+export default function Layout() {
+  return <Stack initialRouteName="SplashScreen" />;
+>>>>>>> 32aff70 (Subiendo estructura y archivos iniciales desde local a rama Josue)
 }

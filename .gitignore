@@ -1,25 +1,41 @@
+<<<<<<< HEAD
 # Learn more: https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
 # Node modules
+=======
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+>>>>>>> 32aff70 (Subiendo estructura y archivos iniciales desde local a rama Josue)
 node_modules/
 
 # Expo
 .expo/
+<<<<<<< HEAD
 .expo-shared/
+=======
+>>>>>>> 32aff70 (Subiendo estructura y archivos iniciales desde local a rama Josue)
 dist/
 web-build/
 expo-env.d.ts
 
+<<<<<<< HEAD
 # Native files
 android/
 ios/
 .kotlin/
+=======
+# Native
+.kotlin/
+*.orig.*
+>>>>>>> 32aff70 (Subiendo estructura y archivos iniciales desde local a rama Josue)
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
 
+<<<<<<< HEAD
 # macOS
 .DS_Store
 *.orig.*
@@ -29,10 +45,17 @@ ios/
 .metro-health-check*
 
 # Debug logs
+=======
+# Metro
+.metro-health-check*
+
+# debug
+>>>>>>> 32aff70 (Subiendo estructura y archivos iniciales desde local a rama Josue)
 npm-debug.*
 yarn-debug.*
 yarn-error.*
 
+<<<<<<< HEAD
 # Local environment files
 .env
 .env*.local
@@ -42,3 +65,16 @@ yarn-error.*
 
 # VSCode
 .vscode/
+=======
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+app-example
+>>>>>>> 32aff70 (Subiendo estructura y archivos iniciales desde local a rama Josue)

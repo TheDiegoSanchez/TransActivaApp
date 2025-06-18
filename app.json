@@ -4,6 +4,7 @@
     "slug": "TransActivaApp",
     "version": "1.0.0",
     "orientation": "portrait",
+<<<<<<< HEAD
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
@@ -12,22 +13,54 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+=======
+    "icon": "./assets/images/icon.png",
+    "scheme": "transactivaapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+>>>>>>> 32aff70 (Subiendo estructura y archivos iniciales desde local a rama Josue)
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
+<<<<<<< HEAD
         "foregroundImage": "./assets/adaptive-icon.png",
+=======
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+>>>>>>> 32aff70 (Subiendo estructura y archivos iniciales desde local a rama Josue)
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true
     },
     "web": {
+<<<<<<< HEAD
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-font",
       "expo-router"
     ]
+=======
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+>>>>>>> 32aff70 (Subiendo estructura y archivos iniciales desde local a rama Josue)
   }
 }
