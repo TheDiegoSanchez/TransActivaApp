@@ -1,25 +1,41 @@
+<<<<<<< HEAD
 # Learn more: https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
 # Node modules
+=======
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+>>>>>>> 4adcb47 (Subiendo Registro Maria)
 node_modules/
 
 # Expo
 .expo/
+<<<<<<< HEAD
 .expo-shared/
+=======
+>>>>>>> 4adcb47 (Subiendo Registro Maria)
 dist/
 web-build/
 expo-env.d.ts
 
+<<<<<<< HEAD
 # Native files
 android/
 ios/
 .kotlin/
+=======
+# Native
+.kotlin/
+*.orig.*
+>>>>>>> 4adcb47 (Subiendo Registro Maria)
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
 
+<<<<<<< HEAD
 # macOS
 .DS_Store
 *.orig.*
@@ -29,10 +45,17 @@ ios/
 .metro-health-check*
 
 # Debug logs
+=======
+# Metro
+.metro-health-check*
+
+# debug
+>>>>>>> 4adcb47 (Subiendo Registro Maria)
 npm-debug.*
 yarn-debug.*
 yarn-error.*
 
+<<<<<<< HEAD
 # Local environment files
 .env
 .env*.local
@@ -42,3 +65,16 @@ yarn-error.*
 
 # VSCode
 .vscode/
+=======
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+app-example
+>>>>>>> 4adcb47 (Subiendo Registro Maria)
