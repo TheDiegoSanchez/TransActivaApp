@@ -1,7 +1,19 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useCallback } from 'react';
+import { View, Text, BackHandler, StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 const HomeScreen = () => {
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => true;
+      const subscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () => {
+        subscription.remove();
+      };
+    }, [])
+  );
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>HomeScreen</Text>

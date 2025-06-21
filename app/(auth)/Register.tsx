@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Image,
   TouchableOpacity,
-  Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -13,6 +12,8 @@ import Colors from '../../constants/Colors';
 import Strings from '../../constants/Strings';
 import InputField from '../../components/InputField';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import ValidationAlert from '../../components/ValidationAlert';
+import { validateFormData } from '../../utils/validators';
 
 const Register = () => {
   const router = useRouter();
@@ -20,12 +21,21 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleContinue = () => {
-    if (password !== confirmPassword) {
-      alert('Las contraseñas no coinciden');
+    const validationResult = validateFormData({
+      email,
+      password,
+      repeatPassword: confirmPassword,
+    });
+
+    if (validationResult) {
+      setErrorMessage(validationResult);
       return;
     }
+
+    setErrorMessage('');
 
     router.push({
       pathname: '/(profile)/CompanyForm',
@@ -79,6 +89,8 @@ const Register = () => {
           value={confirmPassword}
           onChangeText={setConfirmPassword}
         />
+
+        {errorMessage !== '' && <ValidationAlert message={errorMessage} />}
 
         <ButtonPrimary title="Sign Up" onPress={handleContinue} />
 

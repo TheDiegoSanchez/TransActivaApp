@@ -34,7 +34,6 @@ export const login = async (data: LoginPayload) => {
     const response = await api.post('/api/Auth/login', data);
     return response.data;
   } catch (error: any) {
-    console.error('❌ Error en login:', error.response?.data || error.message);
     throw error;
   }
 };
