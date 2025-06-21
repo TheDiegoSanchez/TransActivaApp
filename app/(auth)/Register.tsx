@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -16,6 +16,22 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 
 const Register = () => {
   const router = useRouter();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleContinue = () => {
+    if (password !== confirmPassword) {
+      alert('Las contraseñas no coinciden');
+      return;
+    }
+
+    router.push({
+      pathname: '/(profile)/CompanyForm',
+      params: { email, password },
+    });
+  };
 
   return (
     <KeyboardAwareScrollView
@@ -45,11 +61,26 @@ const Register = () => {
           </TouchableOpacity>
         </View>
 
-        <InputField placeholder="E-mail" keyboardType="email-address" />
-        <InputField placeholder="Password" secureTextEntry />
-        <InputField placeholder="Confirm Password" secureTextEntry />
+        <InputField
+          placeholder="E-mail"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <InputField
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+        <InputField
+          placeholder="Confirm Password"
+          secureTextEntry
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+        />
 
-        <ButtonPrimary title="Sign Up" onPress={() => {}} />
+        <ButtonPrimary title="Sign Up" onPress={handleContinue} />
 
         <View style={styles.footerTextContainer}>
           <Text style={styles.footerText}>
