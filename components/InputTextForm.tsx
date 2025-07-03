@@ -2,18 +2,29 @@ import React from 'react';
 import { View, TextInput, StyleSheet, Text, TextInputProps } from 'react-native';
 import Colors from '../constants/Colors';
 import Strings from '../constants/Strings';
+import { useColorScheme } from 'react-native';
 
 interface InputTextFormProps extends TextInputProps {
   label: string;
 }
 
 const InputTextForm: React.FC<InputTextFormProps> = ({ label, ...props }) => {
+  const colorScheme = useColorScheme() ?? 'light';
+  const themeColors = Colors[colorScheme];
+
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, { color: themeColors.text }]}>{label}</Text>
       <TextInput
-        style={styles.input}
-        placeholderTextColor={Colors.secondary}
+        style={[
+          styles.input,
+          {
+            backgroundColor: themeColors.background,
+            borderColor: themeColors.secondary,
+            color: themeColors.text,
+          },
+        ]}
+        placeholderTextColor={themeColors.secondary}
         {...props}
       />
     </View>
@@ -28,18 +39,14 @@ const styles = StyleSheet.create({
     fontFamily: Strings.font.semiBold,
     fontSize: 14,
     marginBottom: 4,
-    color: Colors.text,
   },
   input: {
-    backgroundColor: Colors.background,
-    borderColor: Colors.secondary,
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 16,
     fontFamily: Strings.font.regular,
-    color: Colors.text,
   },
 });
 

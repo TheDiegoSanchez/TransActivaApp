@@ -7,37 +7,39 @@ import {
   TextInput,
   SafeAreaView,
 } from 'react-native';
-import Colors from '../../constants/Colors';
-import Strings from '../../constants/Strings';
 import { useRouter, useLocalSearchParams } from 'expo-router';
+
+import Strings from '../../constants/Strings';
 import ValidationAlert from '../../components/ValidationAlert';
+import { useThemeColors } from '../../constants/Theme';
 
 const PinInput = () => {
   const [pin, setPin] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
+  const colors = useThemeColors();
 
   const params = useLocalSearchParams();
 
   const email = params.email as string;
   const password = params.password as string;
-  const companyName = params.companyName as string;
+  const name = params.name as string;
   const ruc = params.ruc as string;
   const managerName = params.managerName as string;
   const managerDni = params.managerDni as string;
-  const adminEmail = params.adminEmail as string;
-  const companyPhone = params.companyPhone as string;
-  const companyAddress = params.companyAddress as string;
+  const managerEmail = params.managerEmail as string;
+  const phone = params.phone as string;
+  const address = params.address as string;
 
   const handlePress = (digit: string) => {
     if (pin.length < 6) {
-      setPin(prev => prev + digit);
+      setPin((prev) => prev + digit);
       setErrorMessage('');
     }
   };
 
   const handleDelete = () => {
-    setPin(prev => prev.slice(0, -1));
+    setPin((prev) => prev.slice(0, -1));
     setErrorMessage('');
   };
 
@@ -55,25 +57,27 @@ const PinInput = () => {
         email,
         password,
         userTypeId: '',
-        name: companyName,
+        name,
         ruc,
         managerName,
         managerDni,
-        managerEmail: adminEmail,
-        phone: companyPhone,
-        address: companyAddress,
+        managerEmail,
+        phone,
+        address,
         paymentPasswordHash: pin,
-      }
+      },
     });
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Agregar tu código de seguridad</Text>
+    <SafeAreaView style={[styles.safeArea, { backgroundColor: colors.background }]}>
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
+        <Text style={[styles.title, { color: colors.text }]}>
+          Agregar tu código de seguridad
+        </Text>
 
         <TextInput
-          style={styles.input}
+          style={[styles.input, { backgroundColor: colors.card, borderColor: colors.border, color: colors.text }]}
           value={pin}
           editable={false}
           secureTextEntry
@@ -85,7 +89,7 @@ const PinInput = () => {
           {['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].map((digit, index) => (
             <TouchableOpacity
               key={index}
-              style={styles.key}
+              style={[styles.key, { backgroundColor: colors.primary }]}
               onPress={() => handlePress(digit)}
             >
               <Text style={styles.keyText}>{digit}</Text>
@@ -94,11 +98,11 @@ const PinInput = () => {
         </View>
 
         <View style={styles.buttonRow}>
-          <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
-            <Text style={styles.deleteText}>Borrar</Text>
+          <TouchableOpacity style={[styles.deleteButton, { backgroundColor: colors.alert }]} onPress={handleDelete}>
+            <Text style={styles.buttonText}>Borrar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-            <Text style={styles.nextText}>Siguiente</Text>
+          <TouchableOpacity style={[styles.nextButton, { backgroundColor: colors.primary }]} onPress={handleNext}>
+            <Text style={styles.buttonText}>Siguiente</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -109,12 +113,10 @@ const PinInput = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#CBCBE0',
   },
   container: {
     flex: 1,
     paddingHorizontal: 24,
-    backgroundColor: Colors.background,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -123,17 +125,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: Strings.font.semiBold,
     marginBottom: 20,
-    color: Colors.text,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#000',
     borderRadius: 4,
     height: 50,
     width: '80%',
     textAlign: 'center',
     fontSize: 24,
-    backgroundColor: '#FFF7F7',
     marginBottom: 10,
   },
   keypad: {
@@ -145,9 +144,8 @@ const styles = StyleSheet.create({
   key: {
     width: 70,
     height: 70,
-    backgroundColor: Colors.primary,
-    margin: 10,
     borderRadius: 10,
+    margin: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -164,7 +162,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   deleteButton: {
-    backgroundColor: Colors.alert,
     borderRadius: 10,
     paddingVertical: 12,
     paddingHorizontal: 20,
@@ -173,13 +170,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 10,
   },
-  deleteText: {
-    color: '#fff',
-    fontFamily: Strings.font.semiBold,
-    fontSize: 16,
-  },
   nextButton: {
-    backgroundColor: Colors.primary,
     borderRadius: 10,
     paddingVertical: 12,
     paddingHorizontal: 20,
@@ -187,7 +178,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 2,
   },
-  nextText: {
+  buttonText: {
     color: '#fff',
     fontFamily: Strings.font.semiBold,
     fontSize: 16,

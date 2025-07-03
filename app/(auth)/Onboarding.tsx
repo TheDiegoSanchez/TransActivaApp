@@ -9,12 +9,11 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { useRouter } from 'expo-router';
-import Colors from '../../constants/Colors';
+import { useThemeColors } from '../../constants/Theme';
 import Strings from '../../constants/Strings';
 import ButtonPrimary from '../../components/ButtonPrimary';
 
 const { width } = Dimensions.get('window');
-
 const CAROUSEL_HEIGHT = 400;
 
 const slides = [
@@ -42,45 +41,48 @@ const slides = [
 
 const Onboarding = () => {
     const router = useRouter();
+    const colors = useThemeColors();
 
     return (
-        <View style={styles.container}>
-            <View style={styles.content}>
-                <Image
-                    source={require('../../assets/logo.jpg')}
-                    style={styles.logo}
-                    resizeMode="contain"
-                />
+        <View style={[styles.container, { backgroundColor: colors.background }]}>
+        <View style={styles.content}>
+            <Image
+            source={require('../../assets/logo.jpg')}
+            style={styles.logo}
+            resizeMode="contain"
+            />
 
-                <View style={styles.swiperWrapper}>
-                    <Swiper
-                        loop={false}
-                        showsButtons={false}
-                        dotStyle={styles.dot}
-                        activeDotStyle={styles.activeDot}
-                    >
-                        {slides.map((slide, index) => (
-                            <View style={styles.slide} key={index}>
-                                <Image source={slide.image} style={styles.slideImage} resizeMode="contain" />
-                                <Text style={styles.slideText}>{slide.text}</Text>
-                            </View>
-                        ))}
-                    </Swiper>
-                </View>
-
-                <View style={styles.buttonWrapper}>
-                    <ButtonPrimary title="Log in" onPress={() => router.push('/(auth)/Login')} />
-                </View>
-                <Text style={styles.footerText}>
-                    Don’t have an account?{' '}
-                    <Text
-                        style={styles.signUpLink}
-                        onPress={() => router.push('/(auth)/Register')}
-                    >
-                        Sign Up
+            <View style={[styles.swiperWrapper, { backgroundColor: colors.card }]}>
+            <Swiper
+                loop={false}
+                showsButtons={false}
+                dotStyle={[styles.dot, { backgroundColor: colors.border }]}
+                activeDotStyle={[styles.activeDot, { backgroundColor: colors.primary }]}
+            >
+                {slides.map((slide, index) => (
+                <View style={styles.slide} key={index}>
+                    <Image source={slide.image} style={styles.slideImage} resizeMode="contain" />
+                    <Text style={[styles.slideText, { color: colors.text }]}>
+                    {slide.text}
                     </Text>
-                </Text>
+                </View>
+                ))}
+            </Swiper>
             </View>
+
+            <View style={styles.buttonWrapper}>
+            <ButtonPrimary title="Log in" onPress={() => router.push('/(auth)/Login')} />
+            </View>
+            <Text style={[styles.footerText, { color: colors.text }]}>
+            Don’t have an account?{' '}
+            <Text
+                style={[styles.signUpLink, { color: colors.alert }]}
+                onPress={() => router.push('/(auth)/Register')}
+            >
+                Sign Up
+            </Text>
+            </Text>
+        </View>
         </View>
     );
 };
@@ -88,7 +90,6 @@ const Onboarding = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.background,
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 24,
@@ -104,7 +105,6 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     swiperWrapper: {
-        backgroundColor: '#FFF4F4',
         borderRadius: 16,
         height: CAROUSEL_HEIGHT,
         width: width * 0.9,
@@ -127,11 +127,9 @@ const styles = StyleSheet.create({
     slideText: {
         fontSize: 16,
         textAlign: 'center',
-        color: Colors.text,
         fontFamily: Strings.font.semiBold,
     },
     dot: {
-        backgroundColor: '#D9D9D9',
         width: 8,
         height: 8,
         borderRadius: 4,
@@ -139,7 +137,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     activeDot: {
-        backgroundColor: Colors.primary,
         width: 10,
         height: 10,
         borderRadius: 5,
@@ -154,12 +151,10 @@ const styles = StyleSheet.create({
     footerText: {
         fontFamily: Strings.font.regular,
         fontSize: 14,
-        color: Colors.text,
         textAlign: 'center',
     },
     signUpLink: {
         fontFamily: Strings.font.semiBold,
-        color: Colors.alert,
     },
 });
 
