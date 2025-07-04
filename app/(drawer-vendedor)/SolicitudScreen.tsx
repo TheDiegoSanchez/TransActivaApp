@@ -5,13 +5,10 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
-  Image,
   ScrollView,
   FlatList,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-// REMOVIDO: import { useNavigation } from '@react-navigation/native'; // Ya no se usa
 
 const Colors = {
   primaryBlue: '#1A435E',
@@ -24,7 +21,6 @@ const Colors = {
   inputBorder: '#E0E0E0',
 };
 
-// Datos de ejemplo para solicitudes (reemplazar con datos reales)
 const dummySolicitudes = [
   {
     id: '1',
@@ -56,39 +52,10 @@ const dummySolicitudes = [
 
 const SolicitudesScreen: React.FC = () => {
   const router = useRouter();
-  // REMOVIDO: const navigation = useNavigation(); // Ya no se inicializa
-
-  // REMOVIDO: Función handleOpenDrawer ya no es necesaria aquí si no se usa navigation.openDrawer()
-  // const handleOpenDrawer = () => {
-  //   // Este botón dejará de funcionar si no hay otra manera de abrir el drawer aquí
-  //   // navigation.openDrawer();
-  // };
 
   const handleProcessRequest = (solicitud: typeof dummySolicitudes[0]) => {
-    console.log(`Procesando solicitud ${solicitud.id}. Navegando a OrderDetailScreen para revisión/aceptación.`);
     router.push({
       pathname: '/(vendedor)/(request-screens)/createrequest/id',
-      params: {
-        orderId: solicitud.id,
-        status: solicitud.status,
-        buyerName: solicitud.buyerName,
-        productName: solicitud.productName,
-        quantity: solicitud.quantity,
-        description: solicitud.description,
-        deliveryAddress: solicitud.deliveryAddress,
-        agreedPrice: solicitud.agreedPrice,
-        requestedDate: solicitud.requestedDate,
-        agreedDeliveryDate: solicitud.agreedDeliveryDate,
-        paidDate: solicitud.paidDate,
-        fromSolicitudes: 'true',
-      },
-    });
-  };
-
-  const handleViewDetails = (solicitud: typeof dummySolicitudes[0]) => {
-    console.log(`Viendo detalles de solicitud ${solicitud.id}. Navegando a OrderDetailScreen.`);
-    router.push({
-      pathname: '/(drawer)/OrderDetailScreen',
       params: {
         orderId: solicitud.id,
         status: solicitud.status,
@@ -122,10 +89,6 @@ const SolicitudesScreen: React.FC = () => {
         <TouchableOpacity style={styles.acceptButton} onPress={() => handleProcessRequest(item)}>
           <Text style={styles.acceptButtonText}>Aceptar Solicitud</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.acceptButton} onPress={() => handleProcessRequest(item)}>
-          <Text style={styles.acceptButtonText}>Aceptar Solicitud</Text>
-        </TouchableOpacity>
-
       </View>
     </View>
   );
@@ -133,7 +96,6 @@ const SolicitudesScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* Header: El botón de menú ya no tendrá una función handleOpenDrawer aquí */}
         <Text style={styles.screenTitle}>Mis Solicitudes</Text>
 
         {dummySolicitudes.length > 0 ? (
@@ -161,36 +123,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.lightBackground,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#EEEEEE',
-    backgroundColor: Colors.white,
-  },
-  menuButton: {
-    marginRight: 10,
-  },
-  logoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-    marginLeft: -40,
-  },
-  logoImage: {
-    width: 30,
-    height: 30,
-    resizeMode: 'contain',
-    marginRight: 8,
-  },
-  logoText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: Colors.black,
   },
   screenTitle: {
     fontSize: 24,
@@ -248,30 +180,14 @@ const styles = StyleSheet.create({
   },
   cardButtons: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     marginTop: 15,
-  },
-  detailsButton: {
-    backgroundColor: Colors.primaryBlue,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderRadius: 8,
-    flex: 1,
-    marginRight: 5,
-    alignItems: 'center',
-  },
-  detailsButtonText: {
-    color: Colors.white,
-    fontSize: 15,
-    fontWeight: 'bold',
   },
   acceptButton: {
     backgroundColor: Colors.accentGreen,
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 8,
-    flex: 1,
-    marginLeft: 5,
     alignItems: 'center',
   },
   acceptButtonText: {

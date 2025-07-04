@@ -7,18 +7,26 @@ import {
 import { View, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
-
 export default function DrawerLayout() {
   const router = useRouter();
-
   return (
     <Drawer
       drawerContent={(props) => (
         <View style={styles.drawerContainer}>
           <DrawerContentScrollView {...props} contentContainerStyle={styles.scrollArea}>
-            <DrawerItemList {...props} />
+            <DrawerItem
+              label="Inicio"
+              onPress={() => router.push('/(drawer-vendedor)/VentaScreen')}
+            />
+            <DrawerItem
+              label="Solicitudes"
+              onPress={() => router.push('/(drawer-vendedor)/SolicitudScreen')}
+            />
+            <DrawerItem
+              label="Mis Preparaciones"
+              onPress={() => router.push('/(drawer-vendedor)/ListPrepareScreen')}
+            />
           </DrawerContentScrollView>
-
           <View style={styles.logoutContainer}>
             <DrawerItem
               label="Cerrar sesión"
@@ -42,7 +50,6 @@ export default function DrawerLayout() {
     />
   );
 }
-
 const styles = StyleSheet.create({
   drawerContainer: {
     flex: 1,

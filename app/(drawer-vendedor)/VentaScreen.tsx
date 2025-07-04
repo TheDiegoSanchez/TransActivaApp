@@ -1,24 +1,19 @@
-// app/(drawer)/HomeScreen.tsx
-
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
-// Definición de colores
 const Colors = {
-  primaryBlue: '#1A435E', // Azul marino oscuro
-  lightGrayText: '#A9A9A9', // Gris claro para texto secundario
-  white: '#FFFFFF', // Blanco para fondos y texto
-  black: '#000000', // Negro para texto principal
-  darkGray: '#333333', // Gris oscuro para texto general
-  lightBackground: '#F9F9F9', // Fondo muy claro para secciones
-  cardBackground: '#FFFFFF', // Fondo de tarjetas
-  accentOrange: '#FFA500', // Naranja, como ejemplo para un elemento de UI
-  accentGreen: '#4CAF50', // Verde para acciones positivas
+  primaryBlue: '#1A435E', 
+  lightGrayText: '#A9A9A9', 
+  white: '#FFFFFF', 
+  black: '#000000', 
+  darkGray: '#333333', 
+  lightBackground: '#F9F9F9', 
+  cardBackground: '#FFFFFF', 
+  accentOrange: '#FFA500', 
+  accentGreen: '#4CAF50', 
 };
-
-// Componente para los iconos de la barra de navegación inferior (reutilizado)
 interface BottomBarIconProps {
   iconName: 'cube' | 'briefcase';
   label: string;
@@ -26,21 +21,16 @@ interface BottomBarIconProps {
   isActive: boolean;
 }
 
-const VentaScreen: React.FC = () => {
+const Principal: React.FC = () => {
   const router = useRouter();
-
-  // Funciones de navegación para la barra inferior
   const goToSolicitudes = () => {
     console.log('Navegar a Solicitudes (SolicitudesScreen)');
     router.push('/(drawer-vendedor)/SolicitudScreen');
   };
-
   const goToPreparar = () => {
     console.log('Navegar a Lista de Preparación (ListPrepareScreen)');
     router.push('/(drawer-vendedor)/ListPrepareScreen');
   };
-
-  // Función para navegar a la pantalla de crear nuevo pedido (si hay un botón aquí)
   const goToCreateOrder = () => {
     console.log('Navegar a Crear Nuevo Pedido (CreateOrderScreen)');
     router.push('/(drawer)/CreateOrderScreen');
@@ -49,19 +39,13 @@ const VentaScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* Header personalizado con logo y texto TRANSACTIVA waaa */}
-        
-
-        {/* Contenido Principal de la pantalla de inicio */}
         <ScrollView contentContainerStyle={styles.mainContent}>
-          {/* Sección de Bienvenida/Saludo */}
           <View style={styles.welcomeCard}>
             <Text style={styles.welcomeTitle}>¡Bienvenido de nuevo!</Text>
             <Text style={styles.welcomeSubtitle}>Tu dashboard de envíos está listo.</Text>
             <Ionicons name="earth-outline" size={80} color={Colors.primaryBlue} style={styles.welcomeIcon} />
           </View>
 
-          {/* Sección de Accesos Rápidos o Resumen */}
           <View style={styles.quickAccessContainer}>
             <Text style={styles.quickAccessTitle}>Accesos Rápidos</Text>
             <View style={styles.quickAccessGrid}>        
@@ -73,11 +57,8 @@ const VentaScreen: React.FC = () => {
                 <Ionicons name="briefcase-outline" size={40} color={Colors.primaryBlue} />
                 <Text style={styles.quickAccessText}>Mis Preparaciones</Text>
               </TouchableOpacity>
-              {/* Puedes añadir más accesos rápidos aquí */}
             </View>
           </View>
-
-          {/* Sección de Estadísticas o Novedades (Ejemplo) */}
           <View style={styles.infoCard}>
             <Text style={styles.infoCardTitle}>Resumen de Actividad</Text>
             <View style={styles.infoDetailRow}>
@@ -103,16 +84,16 @@ const VentaScreen: React.FC = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: Colors.lightBackground, // Un fondo muy claro para toda la Safe Area
+    backgroundColor: Colors.lightBackground,
   },
   container: {
     flex: 1,
-    backgroundColor: Colors.lightBackground, // Un fondo muy claro para el contenedor principal
+    backgroundColor: Colors.lightBackground,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center', // Centra el logo y texto
+    justifyContent: 'center',
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderBottomWidth: 1,
@@ -280,4 +261,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default VentaScreen;
+export default Principal;
+
+export const meta = {
+  drawerLabel: 'Inicio',
+};

@@ -1,5 +1,3 @@
-// app/(drawer)/ListPrepareScreen.tsx
-
 import React from 'react';
 import {
   View,
@@ -7,25 +5,21 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
-  // Image, // Ya no es necesaria si eliminas el header que contenía la imagen
   FlatList,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-// import { useNavigation } from '@react-navigation/native'; // Ya no es necesaria si eliminas el botón de menú
 
 const Colors = {
   primaryBlue: '#1A435E',
   lightGrayText: '#A9A9A9',
   white: '#FFFFFF',
   black: '#000000',
-  accentOrange: '#FF9800', // Un color para 'Pendiente de Preparación'
+  accentOrange: '#FF9800',
   darkGray: '#333333',
   lightBackground: '#F9F9F9',
   inputBorder: '#E0E0E0',
 };
 
-// Datos de ejemplo para pedidos pendientes de preparación
 const dummyOrdersToPrepare = [
   {
     id: 'P001',
@@ -64,17 +58,10 @@ const dummyOrdersToPrepare = [
 
 const ListPrepareScreen: React.FC = () => {
   const router = useRouter();
-  // const navigation = useNavigation(); // No es necesaria si no hay botón de menú en este componente
 
-  // const handleOpenDrawer = () => { // Ya no es necesaria
-  //   navigation.openDrawer();
-  // };
-
-  // Función para manejar la acción principal "Preparar Orden"
   const handlePrepareOrder = (order: typeof dummyOrdersToPrepare[0]) => {
-    console.log(`Iniciando preparación de la orden ${order.id}. Navegando a PrepareOrder.tsx`);
     router.push({
-      pathname: '/(vendedor)/(prepared-screens)/preparedrequest/id', // Dirige a PrepareOrder.tsx
+      pathname: '/(vendedor)/(prepared-screens)/preparedrequest/id',
       params: {
         orderId: order.id,
         buyerName: order.buyerName,
@@ -84,16 +71,13 @@ const ListPrepareScreen: React.FC = () => {
         deliveryAddress: order.deliveryAddress,
         requestedDate: order.requestedDate,
         agreedDeliveryDate: order.agreedDeliveryDate,
-        // Puedes pasar más parámetros si PrepareOrder.tsx los necesita
       },
     });
   };
 
-  // Función para "Ver Detalles"
   const handleViewDetails = (order: typeof dummyOrdersToPrepare[0]) => {
-    console.log(`Viendo detalles de la orden ${order.id}. Navegando a PrepareOrderDetailScreen.tsx`);
     router.push({
-      pathname: '/(vendedor)/(prepared-screens)/detailrequest/id', // Dirige a PrepareOrderDetailScreen.tsx
+      pathname: '/(vendedor)/(prepared-screens)/detailrequest/id',
       params: {
         orderId: order.id,
         buyerName: order.buyerName,
@@ -133,22 +117,7 @@ const ListPrepareScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* ELIMINADO: Todo el bloque del header (incluyendo el botón de menú y el logo) */}
-        {/* <View style={styles.header}>
-          <TouchableOpacity onPress={handleOpenDrawer} style={styles.menuButton}>
-            <Ionicons name="menu-outline" size={30} color={Colors.black} />
-          </TouchableOpacity>
-          <View style={styles.logoContainer}>
-            <Image
-              source={require('../../assets/logo.jpg')}
-              style={styles.logoImage}
-            />
-            <Text style={styles.logoText}>TRANSACTIVA</Text>
-          </View>
-        </View> */}
-
         <Text style={styles.screenTitle}>Órdenes Pendientes de Preparación</Text>
-
         {dummyOrdersToPrepare.length > 0 ? (
           <FlatList
             data={dummyOrdersToPrepare}
@@ -175,43 +144,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.lightBackground,
   },
-  // ELIMINADO: Estilos del header si ya no se usa
-  // header: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   paddingHorizontal: 15,
-  //   paddingVertical: 10,
-  //   borderBottomWidth: 1,
-  //   borderBottomColor: '#EEEEEE',
-  //   backgroundColor: Colors.white,
-  // },
-  // menuButton: {
-  //   marginRight: 10,
-  // },
-  // logoContainer: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   marginLeft: -40,
-  // },
-  // logoImage: {
-  //   width: 30,
-  //   height: 30,
-  //   resizeMode: 'contain',
-  //   marginRight: 8,
-  // },
-  // logoText: {
-  //   fontSize: 20,
-  //   fontWeight: 'bold',
-  //   color: Colors.black,
-  // },
   screenTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     color: Colors.primaryBlue,
     textAlign: 'center',
-    marginTop: 20, // Ajustado para compensar la eliminación del header
+    marginTop: 20,
     marginBottom: 20,
   },
   listContent: {

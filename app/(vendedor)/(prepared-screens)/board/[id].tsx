@@ -1,5 +1,3 @@
-// app/(drawer)/CarrierInfoScreen.tsx
-
 import React from 'react';
 import {
   View,
@@ -11,9 +9,8 @@ import {
   Image,
   TextInput,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter, useLocalSearchParams } from 'expo-router'; // Para pasar parámetros
-import { useNavigation } from '@react-navigation/native'; // Para el botón de menú
+import { useRouter, useLocalSearchParams } from 'expo-router'; 
+import { useNavigation } from '@react-navigation/native'; 
 
 const Colors = {
   primaryBlue: '#1A435E',
@@ -23,15 +20,12 @@ const Colors = {
   darkGray: '#333333',
   lightBackground: '#F9F9F9',
   inputBorder: '#E0E0E0',
-  buttonPrimary: '#1A435E', // Azul oscuro para el botón
+  buttonPrimary: '#1A435E', 
 };
-
 const CarrierInfoScreen: React.FC = () => {
   const router = useRouter();
   const navigation = useNavigation();
-  const params = useLocalSearchParams(); // Recibe parámetros de ShipProductScreen
-
-  // Estados para los campos de entrada
+  const params = useLocalSearchParams();
   const [companyName, setCompanyName] = React.useState('');
   const [ruc, setRuc] = React.useState('');
   const [advisor, setAdvisor] = React.useState('');
@@ -40,35 +34,26 @@ const CarrierInfoScreen: React.FC = () => {
   const [pickupAddress, setPickupAddress] = React.useState('');
   const [estimatedArrivalDate, setEstimatedArrivalDate] = React.useState('');
   const [trackingNumber, setTrackingNumber] = React.useState('');
-
+  
   const handleOpenDrawer = () => {
-    console.log('Botón de menú presionado.'); // Mantener comentado para evitar errores de tipado
+    console.log('Botón de menú presionado.');
   };
-
   const handleEnviar = () => {
-    // Lógica para enviar la información del transportista (podría ser al backend)
     alert(`Información del transportista para ${companyName} enviada.`);
-    // Navegar a la pantalla de confirmación (ProductSentScreen)
     router.push({
-      pathname: '/(vendedor)/(prepared-screens)/productsent/id', // Asegúrate de que esta ruta sea correcta
+      pathname: '/(vendedor)/(prepared-screens)/productsent/id',
       params: {
-        orderId: params.orderId, // Pasa el ID de la orden
+        orderId: params.orderId,
         companyName: companyName,
         trackingNumber: trackingNumber,
-        // Puedes pasar más parámetros si es necesario para mostrar en la pantalla final
       },
     });
   };
-
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* Encabezado con botón de menú y logo */}
-
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <Text style={styles.screenTitle}>Quién lo esta trayendo</Text>
-
-          {/* Campos de Información */}
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Nombre de la empresa</Text>
             <TextInput
@@ -78,7 +63,6 @@ const CarrierInfoScreen: React.FC = () => {
               placeholder="Nombre de la empresa de transporte"
             />
           </View>
-
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>RUC de la empresa</Text>
             <TextInput
@@ -89,7 +73,6 @@ const CarrierInfoScreen: React.FC = () => {
               keyboardType="numeric"
             />
           </View>
-
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Asesor</Text>
             <TextInput
@@ -99,7 +82,6 @@ const CarrierInfoScreen: React.FC = () => {
               placeholder="Nombre del asesor"
             />
           </View>
-
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Número telefónico o celular</Text>
             <TextInput
@@ -110,7 +92,6 @@ const CarrierInfoScreen: React.FC = () => {
               keyboardType="phone-pad"
             />
           </View>
-
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Direccion de Envío</Text>
             <TextInput
@@ -120,7 +101,6 @@ const CarrierInfoScreen: React.FC = () => {
               placeholder="Dirección donde se envía"
             />
           </View>
-
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Direccion de recojo</Text>
             <TextInput
@@ -130,7 +110,6 @@ const CarrierInfoScreen: React.FC = () => {
               placeholder="Dirección de recojo"
             />
           </View>
-
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Fecha estimada de llegada</Text>
             <TextInput
@@ -140,7 +119,6 @@ const CarrierInfoScreen: React.FC = () => {
               placeholder="Ej: 2025-07-20"
             />
           </View>
-
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Nro de guía</Text>
             <TextInput
@@ -150,12 +128,9 @@ const CarrierInfoScreen: React.FC = () => {
               placeholder="Número de seguimiento"
             />
           </View>
-
-          {/* Botón de Acción */}
           <TouchableOpacity style={styles.enviarButton} onPress={handleEnviar}>
             <Text style={styles.buttonText}>Enviar</Text>
           </TouchableOpacity>
-
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -170,15 +145,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.lightBackground,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#EEEEEE',
-    backgroundColor: Colors.white,
   },
   menuButton: {
     marginRight: 10,

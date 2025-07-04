@@ -1,5 +1,3 @@
-// app/(drawer)/ShipProductScreen.tsx
-
 import React from 'react';
 import {
   View,
@@ -8,12 +6,9 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
-  Image,
   TextInput,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { useNavigation } from '@react-navigation/native';
 
 const Colors = {
   primaryBlue: '#1A435E',
@@ -28,55 +23,35 @@ const Colors = {
 
 const ShipProductScreen: React.FC = () => {
   const router = useRouter();
-  const navigation = useNavigation();
   const params = useLocalSearchParams();
 
-  // Función auxiliar para asegurar que el parámetro sea un string simple
-  const getParamAsString = (param: string | string[] | undefined): string => {
-    if (Array.isArray(param)) {
-      return param[0] || ''; // Toma el primer elemento del arreglo, o un string vacío si es undefined
-    }
-    return param || ''; // Devuelve el string directamente, o un string vacío si es undefined
-  };
+  const getParamAsString = (param: string | string[] | undefined): string =>
+    Array.isArray(param) ? param[0] || '' : param || '';
 
-  // Estados para los campos de entrada, usando la función auxiliar
   const [product, setProduct] = React.useState(getParamAsString(params.productName));
   const [quantity, setQuantity] = React.useState(getParamAsString(params.quantity));
   const [shippingMethod, setShippingMethod] = React.useState('');
   const [details, setDetails] = React.useState('');
 
-  const handleOpenDrawer = () => {
-    console.log('Botón de menú presionado. (La función openDrawer está comentada para evitar errores de tipado)');
-  };
-
   const handleEmbarcar = () => {
-    alert(`Producto "${product}" embarcado con método: ${shippingMethod}`);
     router.push({
-      pathname: '/(vendedor)/(prepared-screens)/board/id', // Asegúrate de que esta ruta sea correcta
+      pathname: '/(vendedor)/(prepared-screens)/board/id',
       params: {
-        orderId: getParamAsString(params.orderId), // Aseguramos que orderId sea string
-        product: product,
-        quantity: quantity,
-        shippingMethod: shippingMethod,
-        details: details,
+        orderId: getParamAsString(params.orderId),
+        product,
+        quantity,
+        shippingMethod,
+        details,
       },
     });
-  };
-
-  const handleAvisarLlegado = () => {
-    alert('Aviso de llegada enviado.');
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* Encabezado con botón de menú y logo */}
-
-
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <Text style={styles.screenTitle}>Preparar producto</Text>
 
-          {/* Campos de Información */}
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Producto</Text>
             <TextInput
@@ -99,7 +74,7 @@ const ShipProductScreen: React.FC = () => {
           </View>
 
           <View style={styles.inputGroup}>
-            <Text style={styles.inputLabel}>Como se esta enviando?</Text>
+            <Text style={styles.inputLabel}>¿Cómo se está enviando?</Text>
             <TextInput
               style={styles.textInput}
               value={shippingMethod}
@@ -120,11 +95,9 @@ const ShipProductScreen: React.FC = () => {
             />
           </View>
 
-          {/* Botones de Acción */}
           <TouchableOpacity style={styles.embarcarButton} onPress={handleEmbarcar}>
             <Text style={styles.buttonText}>Embarcar</Text>
           </TouchableOpacity>
-
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -139,36 +112,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.lightBackground,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#EEEEEE',
-    backgroundColor: Colors.white,
-  },
-  menuButton: {
-    marginRight: 10,
-  },
-  logoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-    marginLeft: -40,
-  },
-  logoImage: {
-    width: 30,
-    height: 30,
-    resizeMode: 'contain',
-    marginRight: 8,
-  },
-  logoText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: Colors.black,
   },
   scrollContent: {
     padding: 20,
@@ -209,17 +152,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',
-    justifyContent: 'center',
     marginTop: 20,
-    width: '100%',
-  },
-  avisarButton: {
-    backgroundColor: Colors.buttonPrimary,
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 15,
     width: '100%',
   },
   buttonText: {

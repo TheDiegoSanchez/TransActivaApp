@@ -1,7 +1,12 @@
-// app/(drawer)/PrepareOrderDetailScreen.tsx
-
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 
@@ -18,7 +23,6 @@ const PrepareOrderDetailScreen: React.FC = () => {
   const router = useRouter();
   const params = useLocalSearchParams();
 
-  // Recibiendo todos los parámetros pasados desde ListPrepareScreen
   const {
     orderId = 'N/A',
     buyerName = 'No especificado',
@@ -28,26 +32,13 @@ const PrepareOrderDetailScreen: React.FC = () => {
     deliveryAddress = 'Dirección no disponible.',
     requestedDate = 'Fecha no disponible',
     agreedDeliveryDate = 'Fecha no disponible',
-  } = params as {
-    orderId?: string;
-    buyerName?: string;
-    productName?: string;
-    quantity?: string;
-    description?: string;
-    deliveryAddress?: string;
-    requestedDate?: string;
-    agreedDeliveryDate?: string;
-  };
-
-  const handleGoBack = () => {
-    router.back();
-  };
+  } = params as Record<string, string>;
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
+          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
             <Ionicons name="arrow-back" size={24} color={Colors.black} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Detalle de Preparación</Text>
@@ -56,36 +47,42 @@ const PrepareOrderDetailScreen: React.FC = () => {
 
         <ScrollView contentContainerStyle={styles.detailsContent}>
           <Text style={styles.sectionTitle}>Información de la Orden</Text>
+
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>ID de Orden:</Text>
             <Text style={styles.detailValue}>{orderId}</Text>
           </View>
+
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Comprador:</Text>
             <Text style={styles.detailValue}>{buyerName}</Text>
           </View>
+
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Producto:</Text>
             <Text style={styles.detailValue}>{productName}</Text>
           </View>
+
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Cantidad:</Text>
             <Text style={styles.detailValue}>{quantity}</Text>
           </View>
+
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Fecha Solicitada:</Text>
             <Text style={styles.detailValue}>{requestedDate}</Text>
           </View>
+
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Fecha de Entrega Acordada:</Text>
             <Text style={styles.detailValue}>{agreedDeliveryDate}</Text>
           </View>
+
           <Text style={styles.detailLabelBlock}>Descripción:</Text>
           <Text style={styles.detailValueBlock}>{description}</Text>
+
           <Text style={styles.detailLabelBlock}>Dirección de Entrega:</Text>
           <Text style={styles.detailValueBlock}>{deliveryAddress}</Text>
-
-         
         </ScrollView>
       </View>
     </SafeAreaView>
