@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { View, Text, BackHandler, StyleSheet } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 
-const HomeScreen = () => {
+const CompraScreen = () => {
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => true;
@@ -16,7 +16,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>HomeScreen</Text>
+      <Text style={styles.text}>Vista principal para el Comprador</Text>
     </View>
   );
 };
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default CompraScreen;

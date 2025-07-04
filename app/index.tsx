@@ -11,8 +11,17 @@ export default function Index() {
       if (!navigationState?.key) return;
 
       const token = await AsyncStorage.getItem('userToken');
-      if (token) {
-        router.replace('/(drawer)/HomeScreen');
+      const userTypeId = await AsyncStorage.getItem('userTypeId');
+
+      if (!token) {
+        router.replace('/(auth)/Onboarding');
+        return;
+      }
+
+      if (userTypeId === "2") {
+        router.replace('/(drawer-vendedor)/VentaScreen');
+      } else if (userTypeId === "3") {
+        router.replace('/(drawer-comprador)/CompraScreen');
       } else {
         router.replace('/(auth)/Onboarding');
       }
@@ -20,6 +29,5 @@ export default function Index() {
 
     checkAuth();
   }, [navigationState]);
-
   return null;
 }

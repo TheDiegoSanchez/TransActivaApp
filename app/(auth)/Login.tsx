@@ -39,15 +39,25 @@ const Login = () => {
 
             const response = await login({ email, password });
 
-            const token = response.token;
+            const { token, userTypeId } = response;
+
             await AsyncStorage.setItem('userToken', token);
+            await AsyncStorage.setItem('userTypeId', userTypeId.toString());
+
             console.log('Token guardado en AsyncStorage:', token);
+            console.log('Tipo de usuario:', userTypeId);
 
             setAlertMessage('Inicio de sesión exitoso. Redirigiendo...');
-
+        
             setTimeout(() => {
-                router.replace('/(drawer)/HomeScreen');
-            }, 2500);
+            if (userTypeId === 2) {
+                router.replace('/(drawer-vendedor)/VentaScreen');
+            } else if (userTypeId === 3) {
+                router.replace('/(drawer-comprador)/CompraScreen');
+            } else {
+                setAlertMessage('Tipo de usuario no reconocido.');
+            }
+        }, 1000);
 
         } catch (error: any) {
             const message =

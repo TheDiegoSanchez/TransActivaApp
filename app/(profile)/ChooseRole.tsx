@@ -27,9 +27,9 @@ const ChooseRole = () => {
     const address = params.address as string;
     const paymentPasswordHash = params.paymentPasswordHash as string;
 
-    const handleSelect = async (role: 'proveedor' | 'comprador') => {
+    const handleSelect = async (role: 'vendedor' | 'comprador') => {
         try {
-            const selectedType = role === 'proveedor' ? 2 : 3;
+            const selectedType = role === 'vendedor' ? 2 : 3;
 
             const payload = {
                 email,
@@ -71,8 +71,8 @@ const ChooseRole = () => {
         <View style={styles.container}>
             {successMessage !== '' && <ValidationAlert message={successMessage} />}
 
-            <TouchableOpacity style={styles.button} onPress={() => handleSelect('proveedor')}>
-                <Text style={styles.buttonText}>Proveedor</Text>
+            <TouchableOpacity style={styles.button} onPress={() => handleSelect('vendedor')}>
+                <Text style={styles.buttonText}>Vendedor</Text>
                 <Ionicons name="chevron-forward" size={24} color="#000" />
             </TouchableOpacity>
 
