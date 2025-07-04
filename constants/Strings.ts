@@ -7,6 +7,7 @@ const Strings = {
     semiBold: 'Nunito-SemiBold',
     light: 'Nunito-Light',
     extraBold: 'Nunito-ExtraBold',
+    medium: 'Poppins-Medium',
   },
   appName: 'TransActiva',
   welcome: 'Bienvenido a TransActiva',

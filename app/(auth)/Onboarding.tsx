@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import {
     View,
     Text,
     Image,
     StyleSheet,
-    TouchableOpacity,
+    FlatList,
     Dimensions,
 } from 'react-native';
-import Swiper from 'react-native-swiper';
 import { useRouter } from 'expo-router';
 import Colors from '../../constants/Colors';
 import Strings from '../../constants/Strings';
@@ -19,29 +19,36 @@ const CAROUSEL_HEIGHT = 400;
 
 const slides = [
     {
-        image: require('../../assets/adaptive-icon.png'),
-        text: '¡Desde almacén a destino lo hacemos posible!',
+        image: require('../../assets/OnBoarding/Arequipa.png'),
+        text: '¡Desde almacén a destino!',
     },
     {
-        image: require('../../assets/adaptive-icon.png'),
+        image: require('../../assets/OnBoarding/Llama.png'),
         text: 'Envía de forma segura a nivel nacional',
     },
     {
-        image: require('../../assets/adaptive-icon.png'),
+        image: require('../../assets/OnBoarding/Persona.png'),
         text: '¡Información al instante sin complicaciones!',
     },
     {
-        image: require('../../assets/adaptive-icon.png'),
+        image: require('../../assets/OnBoarding/Juego.png'),
         text: '¡Nos adaptamos a lo que necesitas!',
     },
     {
-        image: require('../../assets/adaptive-icon.png'),
-        text: '¡Pagas al recibir sin sorpresas, solo confianza!',
+        image: require('../../assets/OnBoarding/Entrega.png'),
+        text: '¡Pagas al recibir sin sorpresas!',
     },
 ];
 
 const Onboarding = () => {
     const router = useRouter();
+    const [activeIndex, setActiveIndex] = useState(0);
+    const flatListRef = useRef(null);
+
+    const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+        const index = Math.round(e.nativeEvent.contentOffset.x / width);
+        setActiveIndex(index);
+    };
 
     return (
         <View style={styles.container}>
@@ -53,19 +60,35 @@ const Onboarding = () => {
                 />
 
                 <View style={styles.swiperWrapper}>
-                    <Swiper
-                        loop={false}
-                        showsButtons={false}
-                        dotStyle={styles.dot}
-                        activeDotStyle={styles.activeDot}
-                    >
-                        {slides.map((slide, index) => (
-                            <View style={styles.slide} key={index}>
-                                <Image source={slide.image} style={styles.slideImage} resizeMode="contain" />
-                                <Text style={styles.slideText}>{slide.text}</Text>
+                    <FlatList
+                        ref={flatListRef}
+                        horizontal
+                        pagingEnabled
+                        showsHorizontalScrollIndicator={false}
+                        data={slides}
+                        keyExtractor={(_, index) => index.toString()}
+                        renderItem={({ item }) => (
+                            <View style={styles.slide}>
+                                <Image source={item.image} style={styles.slideImage} />
                             </View>
-                        ))}
-                    </Swiper>
+                        )}
+                        onScroll={onScroll}
+                        scrollEventThrottle={16}
+                    />
+                </View>
+
+                <Text style={styles.slideText}>{slides[activeIndex].text}</Text>
+
+                <View style={styles.dotsWrapper}>
+                    {slides.map((_, index) => (
+                        <View
+                            key={index}
+                            style={[
+                                styles.dot,
+                                activeIndex === index && styles.activeDot,
+                            ]}
+                        />
+                    ))}
                 </View>
 
                 <View style={styles.buttonWrapper}>
@@ -108,27 +131,29 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         height: CAROUSEL_HEIGHT,
         width: width * 0.9,
-        marginBottom: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: 10,
+        overflow: 'hidden',
     },
     slide: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 20,
+        width: width * 0.9,
+        height: CAROUSEL_HEIGHT,
     },
     slideImage: {
-        width: '80%',
-        height: '65%',
-        marginBottom: 10,
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover',
     },
     slideText: {
         fontSize: 16,
         textAlign: 'center',
         color: Colors.text,
         fontFamily: Strings.font.semiBold,
+        marginTop: 16,
+        paddingHorizontal: 20,
+    },
+    dotsWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginVertical: 12,
     },
     dot: {
         backgroundColor: '#D9D9D9',
@@ -136,15 +161,12 @@ const styles = StyleSheet.create({
         height: 8,
         borderRadius: 4,
         marginHorizontal: 4,
-        marginTop: 10,
     },
     activeDot: {
         backgroundColor: Colors.primary,
         width: 10,
         height: 10,
         borderRadius: 5,
-        marginHorizontal: 4,
-        marginTop: 10,
     },
     buttonWrapper: {
         width: '80%',

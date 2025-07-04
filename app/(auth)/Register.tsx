@@ -64,27 +64,27 @@ const Register = () => {
             style={styles.switchButton}
             onPress={() => router.replace('/(auth)/Login')}
           >
-            <Text style={styles.switchText}>Log in</Text>
+            <Text style={styles.switchText}>Iniciar Sesión</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.switchButton, styles.activeButton]}>
-            <Text style={[styles.switchText, styles.activeText]}>Sign Up</Text>
+            <Text style={[styles.switchText, styles.activeText]}>Registrarse</Text>
           </TouchableOpacity>
         </View>
 
         <InputField
-          placeholder="E-mail"
+          placeholder="Correo Electrónico"
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
         />
         <InputField
-          placeholder="Password"
+          placeholder="Contraseña"
           secureTextEntry
           value={password}
           onChangeText={setPassword}
         />
         <InputField
-          placeholder="Confirm Password"
+          placeholder="Confirmar Contraseña"
           secureTextEntry
           value={confirmPassword}
           onChangeText={setConfirmPassword}
@@ -92,16 +92,16 @@ const Register = () => {
 
         {errorMessage !== '' && <ValidationAlert message={errorMessage} />}
 
-        <ButtonPrimary title="Sign Up" onPress={handleContinue} />
+        <ButtonPrimary title="Registrarse" onPress={handleContinue} />
 
         <View style={styles.footerTextContainer}>
           <Text style={styles.footerText}>
-            Already have an account?{' '}
+            Ya tienes una Cuenta?{' '}
             <Text
               style={styles.loginLink}
               onPress={() => router.replace('/(auth)/Login')}
             >
-              Log in
+              Iniciar Sesión
             </Text>
           </Text>
         </View>

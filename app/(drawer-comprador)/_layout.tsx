@@ -20,6 +20,7 @@ export default function DrawerLayout() {
           </DrawerContentScrollView>
 
           <View style={styles.logoutContainer}>
+            
             <DrawerItem
               label="Cerrar sesión"
               labelStyle={{ color: 'red', fontWeight: 'bold' }}

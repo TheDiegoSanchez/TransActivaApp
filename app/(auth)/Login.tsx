@@ -24,12 +24,14 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState<'success' | 'error'>('error');
 
     const handleLogin = async () => {
         if (!navigationState?.key) return;
 
         if (!email || !password) {
             setAlertMessage('Por favor completa todos los campos.');
+            setAlertType('error');
             return;
         }
 
@@ -48,22 +50,24 @@ const Login = () => {
             console.log('Tipo de usuario:', userTypeId);
 
             setAlertMessage('Inicio de sesión exitoso. Redirigiendo...');
-        
-            setTimeout(() => {
-            if (userTypeId === 2) {
-                router.replace('/(drawer-vendedor)/VentaScreen');
-            } else if (userTypeId === 3) {
-                router.replace('/(drawer-comprador)/Principal');
-            } else {
-                setAlertMessage('Tipo de usuario no reconocido.');
-            }
-        }, 1000);
+            setAlertType('success');
 
+            setTimeout(() => {
+                if (userTypeId === 2) {
+                    router.replace('/(drawer-vendedor)/VentaScreen');
+                } else if (userTypeId === 3) {
+                    router.replace('/(drawer-comprador)/Principal');
+                } else {
+                    setAlertMessage('Tipo de usuario no reconocido.');
+                    setAlertType('error');
+                }
+            }, 1000);
         } catch (error: any) {
             const message =
                 error.response?.data?.message ||
                 'Correo o contraseña incorrectos.';
             setAlertMessage(message);
+            setAlertType('error');
         } finally {
             setLoading(false);
         }
@@ -87,39 +91,41 @@ const Login = () => {
             <View style={styles.formContainer}>
                 <View style={styles.switchContainer}>
                     <TouchableOpacity style={[styles.switchButton, styles.activeButton]}>
-                        <Text style={[styles.switchText, styles.activeText]}>Log in</Text>
+                        <Text style={[styles.switchText, styles.activeText]}>Iniciar Sesión</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.switchButton}
                         onPress={() => router.replace('/(auth)/Register')}
                     >
-                        <Text style={styles.switchText}>Sign Up</Text>
+                        <Text style={styles.switchText}>Registrarse</Text>
                     </TouchableOpacity>
                 </View>
 
                 <InputField
-                    placeholder="E-mail"
+                    placeholder="Correo Electrónico"
                     keyboardType="email-address"
                     value={email}
                     onChangeText={setEmail}
                 />
                 <InputField
-                    placeholder="Password"
+                    placeholder="Contraseña"
                     secureTextEntry
                     value={password}
                     onChangeText={setPassword}
                 />
 
-                {alertMessage !== '' && <ValidationAlert message={alertMessage} />}
+                {alertMessage !== '' && (
+                    <ValidationAlert message={alertMessage} type={alertType} />
+                )}
 
                 <ButtonPrimary
-                    title={loading ? 'Cargando...' : 'Log in'}
+                    title={loading ? 'Cargando...' : 'Iniciar Sesión'}
                     onPress={handleLogin}
                     disabled={loading}
                 />
 
                 <TouchableOpacity>
-                    <Text style={styles.forgotText}>Forgot Password?</Text>
+                    <Text style={styles.forgotText}>Olvidaste tu Contraseña?</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAwareScrollView>

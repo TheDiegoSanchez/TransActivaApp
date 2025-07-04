@@ -23,6 +23,10 @@ export default function DrawerLayout() {
               onPress={() => router.push('/(drawer-vendedor)/SolicitudScreen')}
             />
             <DrawerItem
+              label="Configuración"
+              onPress={() => router.push('/(drawer-vendedor)/Settings')} 
+            />
+            <DrawerItem
               label="Mis Preparaciones"
               onPress={() => router.push('/(drawer-vendedor)/ListPrepareScreen')}
             />

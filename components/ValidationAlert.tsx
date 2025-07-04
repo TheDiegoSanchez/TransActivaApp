@@ -5,29 +5,31 @@ import Strings from '../constants/Strings';
 
 interface Props {
   message: string;
+  type?: 'success' | 'error';
 }
 
-const ValidationAlert: React.FC<Props> = ({ message }) => {
+const ValidationAlert: React.FC<Props> = ({ message, type = 'error' }) => {
   if (!message) return null;
 
+  const backgroundColor = type === 'success' ? '#D4EDDA' : '#FDDCDC';
+  const borderColor = type === 'success' ? '#28A745' : Colors.alert;
+  const textColor = type === 'success' ? '#155724' : Colors.text;
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{message}</Text>
+    <View style={[styles.container, { backgroundColor, borderLeftColor: borderColor }]}>
+      <Text style={[styles.text, { color: textColor }]}>{message}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FDDCDC',
     borderLeftWidth: 4,
-    borderLeftColor: Colors.alert,
     padding: 12,
     borderRadius: 10,
     marginBottom: 10,
   },
   text: {
-    color: Colors.text,
     fontSize: 14,
     fontFamily: Strings.font.regular,
   },
