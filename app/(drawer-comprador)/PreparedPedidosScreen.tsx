@@ -28,7 +28,7 @@ export default function PedidosPreparados() {
           <TouchableOpacity
             key={pedido.id}
             style={styles.item}
-            onPress={() => router.push('/Comprador/detalle-preparacion')}
+            onPress={() => router.push('/(comprador)/(detail-screen)/detail/[id]')}
           >
             <View>
               <Text style={styles.itemText}>{pedido.nombre}</Text>

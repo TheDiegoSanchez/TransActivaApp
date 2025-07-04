@@ -13,7 +13,7 @@ export default function EsperandoProveedor() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            router.replace("/solicitud-aceptada");
+            router.replace("/(comprador)/(created-screens)/password/[id]"); // Redirige a la pantalla de pedido realizado
         }, 4000); // Espera 4 segundos
 
         return () => clearTimeout(timer);

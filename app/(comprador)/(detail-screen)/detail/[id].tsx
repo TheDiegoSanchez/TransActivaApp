@@ -1,31 +1,42 @@
-import React from 'react';
-import { Image, Platform, SafeAreaView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-export default function Boleta() {
+import {
+  Image,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+
+export default function DetallePreparacion() {
   const router = useRouter();
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+        {/* Encabezado */}
         <View style={styles.header}>
           
           <View style={styles.headerCenter}>
-        
+           
             <Text style={styles.logoText}>TRANSACTIVA</Text>
           </View>
           <View style={{ width: 30 }} />
         </View>
 
-        <Text style={styles.title}>Boleta</Text>
+        <Text style={styles.title}>Detalles de preparación</Text>
 
-        <Text style={styles.line}>.</Text>
-        <Text style={styles.line}>.</Text>
-        <Text style={styles.line}>.</Text>
+        {['Estado', 'Producto', 'Cantidad de producto', '¿Cómo se está enviando?', 'Detalles'].map((label, i) => (
+          <TextInput key={i} placeholder={label} style={styles.input} placeholderTextColor="#666" />
+        ))}
 
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/(drawer-comprador)/CompraScreen')}>
-          <Text style={styles.buttonText}>Ir aL Inicio</Text>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/(comprador)/(detail-screen)/sent/[id]')}>
+          <Text style={styles.buttonText}>Ver envío</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -37,15 +48,14 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? 40 : 0,
   },
   container: {
-    flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    paddingBottom: 30,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   headerCenter: {
     flexDirection: 'row',
@@ -68,23 +78,29 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    marginVertical: 10,
-  },
-  line: {
-    fontSize: 28,
+    marginVertical: 20,
     textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#2b7a36',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 14,
+    fontSize: 15,
   },
   button: {
     backgroundColor: '#003366',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
+    paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 10,
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
     fontWeight: 'bold',
+    fontSize: 16,
   },
 });

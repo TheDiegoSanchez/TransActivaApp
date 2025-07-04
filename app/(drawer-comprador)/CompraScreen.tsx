@@ -32,32 +32,13 @@ export default function Index() {
         <View style={styles.plusWrapper}>
           <TouchableOpacity
             style={styles.plusButton}
-            onPress={() => router.push('/realizar-pedido')}
+            onPress={() => router.push('/(comprador)/(created-screens)/made/[id]')} // <- Modificado aquí
           >
             <Ionicons name="add" size={36} color="#fff" />
           </TouchableOpacity>
         </View>
 
-        {/* Barra inferior */}
-        <View style={styles.bottomBar}>
-          <TouchableOpacity
-            style={styles.navItem}
-            onPress={() => router.push('/pedidos-realizados')} // <- Modificado aquí
-          >
-
-            <Text style={styles.navText}>Pedidos</Text>
-          </TouchableOpacity>
-
-          {/* Espacio reservado para el botón "+" */}
-          <View style={{ width: 60 }} />
-
-          <TouchableOpacity
-            style={styles.navItem}
-            onPress={() => router.push('/pedidos-preparados')}
-          >
-            <Text style={styles.navText}>Preparados</Text>
-          </TouchableOpacity>
-        </View>
+        
       </View>
     </SafeAreaView>
   );
