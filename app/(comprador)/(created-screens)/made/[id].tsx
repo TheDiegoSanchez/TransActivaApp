@@ -2,11 +2,8 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
-    Image,
-    KeyboardAvoidingView,
     Platform,
     Pressable,
-    SafeAreaView,
     ScrollView,
     StyleSheet,
     Text,
@@ -14,6 +11,10 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { SafeAreaView } from "react-native-safe-area-context";
+import Colors from '../../../../constants/Colors';
+import Strings from '../../../../constants/Strings';
 
 export default function RealizarPedido() {
     const router = useRouter();
@@ -65,9 +66,11 @@ export default function RealizarPedido() {
 
     return (
         <SafeAreaView style={styles.safeArea}>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === "ios" ? "padding" : undefined}
-                style={{ flex: 1 }}
+            <KeyboardAwareScrollView
+                contentContainerStyle={styles.container}
+                enableOnAndroid={true}
+                extraScrollHeight={20}
+                keyboardShouldPersistTaps="handled"
             >
                 <ScrollView
                     contentContainerStyle={styles.container}
@@ -75,7 +78,7 @@ export default function RealizarPedido() {
                 >
                     <View style={styles.header}>
                         <View style={styles.headerCenter}>
-                            <Text style={styles.logoText}>TRANSACTIVA</Text>
+                            <Text style={styles.logoText}>{Strings.appName}</Text>                    
                         </View>
                         <View style={{ width: 30 }} />
                     </View>
@@ -86,7 +89,7 @@ export default function RealizarPedido() {
                         placeholder="Producto"
                         value={form.producto}
                         onChangeText={(v) => handleChange("producto", v)}
-                        placeholderTextColor="#666"
+                        placeholderTextColor={Colors.secondary}
                         style={styles.input}
                     />
                     <TextInput
@@ -94,28 +97,28 @@ export default function RealizarPedido() {
                         value={form.cantidad}
                         onChangeText={(v) => handleChange("cantidad", v)}
                         keyboardType="numeric"
-                        placeholderTextColor="#666"
+                        placeholderTextColor={Colors.secondary}
                         style={styles.input}
                     />
                     <TextInput
                         placeholder="Descripción"
                         value={form.descripcion}
                         onChangeText={(v) => handleChange("descripcion", v)}
-                        placeholderTextColor="#666"
+                        placeholderTextColor={Colors.secondary}
                         style={styles.input}
                     />
                     <TextInput
                         placeholder="Proveedor"
                         value={form.proveedor}
                         onChangeText={(v) => handleChange("proveedor", v)}
-                        placeholderTextColor="#666"
+                        placeholderTextColor={Colors.secondary}
                         style={styles.input}
                     />
                     <TextInput
                         placeholder="Dirección de entrega"
                         value={form.direccion}
                         onChangeText={(v) => handleChange("direccion", v)}
-                        placeholderTextColor="#666"
+                        placeholderTextColor={Colors.secondary}
                         style={styles.input}
                     />
 
@@ -124,7 +127,7 @@ export default function RealizarPedido() {
                             placeholder="Fecha de llegada acordada"
                             value={form.fecha}
                             editable={false}
-                            placeholderTextColor="#666"
+                            placeholderTextColor={Colors.secondary}
                             style={styles.input}
                         />
                     </Pressable>
@@ -142,7 +145,7 @@ export default function RealizarPedido() {
                         value={form.precio}
                         onChangeText={(v) => handleChange("precio", v)}
                         keyboardType="decimal-pad"
-                        placeholderTextColor="#666"
+                        placeholderTextColor={Colors.secondary}
                         style={styles.input}
                     />
 
@@ -150,19 +153,19 @@ export default function RealizarPedido() {
                         placeholder="Nombre de la transacción"
                         value={form.transaccion}
                         onChangeText={(v) => handleChange("transaccion", v)}
-                        placeholderTextColor="#666"
+                        placeholderTextColor={Colors.secondary}
                         style={styles.input}
                     />
 
                     <TouchableOpacity
-                        style={[styles.button, !isFormValid && { backgroundColor: "#ccc" }]}
+                        style={[styles.button, !isFormValid && { backgroundColor: Colors.secondary }]}
                         onPress={() => router.push("(comprador)/(created-screens)/wait/id")}
                         disabled={!isFormValid}
                     >
                         <Text style={styles.buttonText}>Enviar solicitud</Text>
                     </TouchableOpacity>
                 </ScrollView>
-            </KeyboardAvoidingView>
+            </KeyboardAwareScrollView>
         </SafeAreaView>
     );
 }
@@ -170,13 +173,13 @@ export default function RealizarPedido() {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: "#fff",
-        paddingTop: Platform.OS === "android" ? 40 : 0,
+        backgroundColor: Colors.background,
+        paddingTop: Platform.OS === "android" ? 0 : 0,
     },
     container: {
-        padding: 20,
+        padding: 10,
         paddingBottom: 40,
-        backgroundColor: "#fff",
+        backgroundColor: Colors.background,
     },
     header: {
         flexDirection: "row",
@@ -184,49 +187,42 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginBottom: 10,
     },
-    menuIcon: {
-        width: 30,
-        height: 30,
-        tintColor: "#003366",
-    },
     headerCenter: {
         flexDirection: "row",
         alignItems: "center",
     },
-    packageIcon: {
-        width: 30,
-        height: 30,
-        marginRight: 6,
-    },
     logoText: {
         fontSize: 20,
-        fontWeight: "bold",
-        color: "#000",
+        fontFamily: Strings.font.bold,
+        color: Colors.text,
     },
     title: {
         fontSize: 18,
         textAlign: "center",
         marginVertical: 15,
-        fontWeight: "500",
+        fontFamily: Strings.font.semiBold,
+        color: Colors.text,
     },
     input: {
         borderWidth: 1,
-        borderColor: "#ccc",
+        borderColor: Colors.secondary,
         borderRadius: 8,
         padding: 12,
         marginBottom: 14,
         fontSize: 14,
+        color: Colors.text,
+        fontFamily: Strings.font.regular,
     },
     button: {
-        backgroundColor: "#003366",
+        backgroundColor: Colors.primary,
         paddingVertical: 14,
         borderRadius: 8,
         alignItems: "center",
         marginTop: 20,
     },
     buttonText: {
-        color: "#fff",
-        fontWeight: "bold",
+        color: Colors.background,
+        fontFamily: Strings.font.bold,
         fontSize: 16,
     },
 });

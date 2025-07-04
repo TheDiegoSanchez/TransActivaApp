@@ -7,22 +7,26 @@ import {
     Text,
     View,
 } from "react-native";
+import Colors from '../../../../constants/Colors';
+import Strings from '../../../../constants/Strings';
 
 export default function EsperandoProveedor() {
     const router = useRouter();
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            router.replace("/(comprador)/(created-screens)/password/[id]"); // Redirige a la pantalla de pedido realizado
-        }, 4000); // Espera 4 segundos
+            router.replace("/(comprador)/(created-screens)/password/[id]");
+        }, 4000);
 
         return () => clearTimeout(timer);
     }, []);
 
     return (
         <View style={styles.container}>
-            <ActivityIndicator size="large" color="#003366" style={styles.loader} />
-            <Text style={styles.text}>Espera, estamos esperando al proveedor</Text>
+            <ActivityIndicator size="large" color={Colors.primary} style={styles.loader} />
+            <Text style={styles.text}>
+                {Strings.appName}: Espera, estamos esperando al proveedor
+            </Text>
         </View>
     );
 }
@@ -32,7 +36,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#fff",
+        backgroundColor: Colors.background,
         paddingTop: Platform.OS === "android" ? 40 : 0,
     },
     loader: {
@@ -42,6 +46,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 16,
         textAlign: "center",
-        color: "#000",
+        color: Colors.text,
+        fontFamily: Strings.font.semiBold,
     },
-});
+})
