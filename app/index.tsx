@@ -21,7 +21,7 @@ export default function Index() {
       if (userTypeId === "2") {
         router.replace('/(drawer-vendedor)/VentaScreen');
       } else if (userTypeId === "3") {
-        router.replace('/(drawer-comprador)/CompraScreen');
+        router.replace('/(drawer-comprador)/Principal');
       } else {
         router.replace('/(auth)/Onboarding');
       }

@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function PedidosPreparados() {
+const Pedidos: React.FC = () => {
   const router = useRouter();
 
   const pedidos = [
@@ -12,18 +12,7 @@ export default function PedidosPreparados() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* Encabezado */}
-        <View style={styles.header}>
-          
-          <View style={styles.headerCenter}>
-            
-            <Text style={styles.logoText}>TRANSACTIVA</Text>
-          </View>
-          <View style={{ width: 30 }} />
-        </View>
-
         <Text style={styles.title}>Pedidos preparados</Text>
-
         {pedidos.map((pedido) => (
           <TouchableOpacity
             key={pedido.id}
@@ -40,47 +29,21 @@ export default function PedidosPreparados() {
       </View>
     </SafeAreaView>
   );
-}
+};
+
 
 const styles = StyleSheet.create({
   safeArea: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: Platform.OS === 'android' ? 40 : 0,
+    
   },
   container: {
-    padding: 20,
-    flex: 1,
+    padding: 10,
     backgroundColor: '#fff',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 15,
-  },
-  headerCenter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  menuIcon: {
-    width: 30,
-    height: 30,
-    tintColor: '#003366',
-  },
-  packageIcon: {
-    width: 30,
-    height: 30,
-    marginRight: 6,
-  },
-  logoText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
+
   title: {
     fontSize: 18,
     textAlign: 'center',
-    marginBottom: 15,
     fontWeight: '500',
   },
   item: {
@@ -104,3 +67,5 @@ const styles = StyleSheet.create({
     color: '#000',
   },
 });
+
+export default Pedidos;

@@ -22,7 +22,7 @@ export default function Boleta() {
         <Text style={styles.line}>.</Text>
         <Text style={styles.line}>.</Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/(drawer-comprador)/CompraScreen')}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/(drawer-comprador)/Principal')}>
           <Text style={styles.buttonText}>Ir aL Inicio</Text>
         </TouchableOpacity>
       </View>

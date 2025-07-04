@@ -30,7 +30,7 @@ export default function DetalleEnvio() {
           <TextInput key={i} placeholder={label} style={styles.input} placeholderTextColor="#666" />
         ))}
 
-        <TouchableOpacity style={styles.okButton} onPress={() => router.push('/(drawer-comprador)/PreparedPedidosScreen')}>
+        <TouchableOpacity style={styles.okButton} onPress={() => router.push('/(drawer-comprador)/Pedidos')}>
           <Text style={styles.okText}>Ok</Text>
         </TouchableOpacity>
       </ScrollView>

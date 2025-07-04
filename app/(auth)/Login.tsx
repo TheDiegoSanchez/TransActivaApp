@@ -53,7 +53,7 @@ const Login = () => {
             if (userTypeId === 2) {
                 router.replace('/(drawer-vendedor)/VentaScreen');
             } else if (userTypeId === 3) {
-                router.replace('/(drawer-comprador)/CompraScreen');
+                router.replace('/(drawer-comprador)/Principal');
             } else {
                 setAlertMessage('Tipo de usuario no reconocido.');
             }
